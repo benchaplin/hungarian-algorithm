@@ -1,50 +1,59 @@
+'''
+    File name: graph.py
+    Description: Graph classes to be used in the main algorithm.
+    Author: Ben Chaplin
+    GitHub: https://github.com/benchaplin/hungarian_algorithm
+    Package: hungarian_algorithm
+    Python Version: 3.7.5
+'''
+
 class Vertex: 
 
 	def __init__(self, key):
-		"""Vertex constructor.
+		'''Vertex constructor.
 
 		Parameters
 		----------
 		key : str, required
-		"""
+		'''
 		self.key = key
 		self.label = None
 		self.neighbors = set() # keys
 		self.indicent_edges = set()
 
 	def set_label(self, label):
-		"""Label the vertex."""
+		'''Label the vertex.'''
 		self.label = label
 
 
 class Edge:
 
 	def __init__(self, v1, v2, weight = 0):
-		"""Edge constructor.
+		'''Edge constructor.
 
 		Parameters
 		----------
 		v1 : str, required (endpoint1 key)
 		v2 : str, required (endpoint2 key)
 		weight : int, optional (default = 0)
-		"""
+		'''
 		self.vertices = frozenset([v1, v2])
 		self.weight = weight
 
 	def __eq__(self, e):
-		"""Edges with equal endpoints and weights are equal."""
+		'''Edges with equal endpoints and weights are equal.'''
 		return (self.vertices == e.vertices
 				and self.weight == e.weight)
 
 	def __hash__(self):
-		"""Hash the vertices (frozen set) and weight."""
+		'''Hash the vertices (frozen set) and weight.'''
 		return hash((self.vertices, self.weight))
 
 
 class Graph:
 
 	def __init__(self, G={}):
-		"""Graph constructor.
+		'''Graph constructor.
 
 		Parameters
 		----------
@@ -55,7 +64,7 @@ class Graph:
 						dict (weighted graph) 
 							key : neighboring vertex key
 							value : edge weight
-		"""
+		'''
 		self.vertices = {}
 		for v1 in G:
 			for v2 in G[v1]:
@@ -65,23 +74,23 @@ class Graph:
 					self.add_edge(v1, v2)
 
 	def add_vertex(self, key):
-		"""Add a vertex to the graph.
+		'''Add a vertex to the graph.
 
 		Parameters
 		----------
 		key : str, required
-		"""
+		'''
 		self.vertices[key] = Vertex(key)
 
 	def add_edge(self, v1, v2, weight = 0):
-		"""Add a vertex to the graph.
+		'''Add a vertex to the graph.
 		
 		Parameters
 		----------
 		v1 : str, required (endpoint1 key)
 		v2 : str, required (endpoint2 key)
 		weight : int, optional (default = 0)
-		"""
+		'''
 		if v1 not in self.vertices:
 			self.add_vertex(v1)
 		if v2 not in self.vertices:

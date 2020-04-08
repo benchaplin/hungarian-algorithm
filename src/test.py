@@ -1,3 +1,12 @@
+'''
+    File name: test.py
+    Description: Tests for Graph methods and algorithms.
+    Author: Ben Chaplin
+    GitHub: https://github.com/benchaplin/hungarian_algorithm
+    Package: hungarian_algorithm
+    Python Version: 3.7.5
+'''
+
 
 import unittest
 from graph import Vertex, Edge, Graph
