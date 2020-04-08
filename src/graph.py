@@ -5,6 +5,7 @@
     GitHub: https://github.com/benchaplin/hungarian_algorithm
     Package: hungarian_algorithm
     Python Version: 3.7.5
+    License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
 class Vertex: 
