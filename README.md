@@ -68,6 +68,7 @@ Determine your desired output with an optional input. For an output listing *Pla
 hungarian_algorithm(G, 'list')
 # -> [('Cal-CAM', 3), ('Jon-F', 3), ('Fae-CM', 3), ('Hol-SWP', 1), ('Dan-CB', 0), ('Ann-RB', 3),
 #     ('Gio-LB', 0), ('Ian-S', 3), ('Ela-GK', 3), ('Ben-LW', 3), ('Kay-RW', 2)]
+```
 
 For an output of the total weight of the **maximum-weighted matching**, use the input 'total':
 
