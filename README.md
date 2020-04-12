@@ -38,7 +38,7 @@ G = {
 	'Gio': {'GK': 3, 'CM': 2, 'S': 1},
 	'Hol': {'CAM': 3, 'F': 2, 'SWP': 1},
 	'Ian': {'S': 3, 'RW': 2, 'RB': 1},
-	'Jon': {'RB': 3, 'CAM': 2, 'GK': 1},
+	'Jon': {'F': 3, 'LW': 2, 'CB': 1},
 	'Kay': {'GK': 3, 'RW': 2, 'LW': 1, 'LB': 0}
 }
 ```
@@ -66,14 +66,14 @@ Determine your desired output with an optional input. For an output listing *Pla
 
 ```python
 hungarian_algorithm(G, 'list')
-# -> [('Ela-GK', 3), ('Ben-LW', 3), ('Cal-CAM', 3), ('Dan-S', 3), ('Ann-SWP', 0), ('Ian-RW', 2), ('Hol-F', 2), ('Fae-CM', 3), ('Jon-RB', 3), ('Gio-LB', 0)]
-```
+# -> [('Cal-CAM', 3), ('Jon-F', 3), ('Fae-CM', 3), ('Hol-SWP', 1), ('Dan-CB', 0), ('Ann-RB', 3),
+      ('Gio-LB', 0), ('Ian-S', 3), ('Ela-GK', 3), ('Ben-LW', 3), ('Kay-RW', 2)]
 
 For an output of the total weight of the **maximum-weighted matching**, use the input 'total':
 
 ```python
 hungarian_algorithm(G, 'total')
-# -> 22
+# -> 24
 ```
 
 ## History
