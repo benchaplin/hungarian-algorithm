@@ -71,21 +71,22 @@ ex_L = {
 	'Gio': {'GK': 3, 'CM': 2, 'S': 1},
 	'Hol': {'CAM': 3, 'F': 2, 'SWP': 1},
 	'Ian': {'S': 3, 'RW': 2, 'RB': 1},
-	'Jon': {'RB': 3, 'CAM': 2, 'GK': 1},
+	'Jon': {'F': 3, 'LW': 2, 'CB': 1},
 	'Kay': {'GK': 3, 'RW': 2, 'LW': 1, 'LB': 0}
 }
 
 exp_matching_L = {
-	('Ian-RW', 2), 
 	('Cal-CAM', 3), 
-	('Ann-SWP', 0), 
-	('Ela-LB', 0), 
- 	('Dan-S', 3), 
-	('Jon-RB', 3), 
-	('Hol-F', 2), 
+	('Jon-F', 3), 
 	('Fae-CM', 3), 
+	('Hol-SWP', 1), 
+	('Dan-CB', 0), 
+	('Ann-RB', 3),
+	('Gio-LB', 0), 
+	('Ian-S', 3), 
+	('Ela-GK', 3), 
 	('Ben-LW', 3), 
-	('Gio-GK', 3)
+	('Kay-RW', 2)
 }
 
 class TestGraphMethods(unittest.TestCase):
@@ -118,7 +119,7 @@ class TestGraphMethods(unittest.TestCase):
 		self.assertEquals(set(hungarian_algorithm(ex_L)), exp_matching_L)
 
 	def test_hungarian_algorithm5_total(self):
-		self.assertEquals(hungarian_algorithm(ex_L, "total"), 22)
+		self.assertEquals(hungarian_algorithm(ex_L, "total"), 24)
 
 if __name__ == '__main__':
     unittest.main()
