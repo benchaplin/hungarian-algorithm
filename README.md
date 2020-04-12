@@ -79,4 +79,4 @@ hungarian_algorithm(G, 'total')
 
 ## History
 
-The algorithm was published by Harold Kuhn in 1955 paper "The Hungarian Method for the Assignment Problem." Kuhn's work relied heavily on that of Hungarian mathematicians D&eacute;nes K&#337;nig and Jen&#337; Eg&eacute;vary.
+The algorithm was published by Harold Kuhn in 1955 paper *The Hungarian Method for the Assignment Problem*. Kuhn's work relied heavily on that of Hungarian mathematicians D&eacute;nes K&#337;nig and Jen&#337; Eg&eacute;vary.
