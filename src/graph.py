@@ -8,6 +8,8 @@
     License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
+import copy
+
 class Vertex: 
 
 	def __init__(self, key):
@@ -21,6 +23,7 @@ class Vertex:
 		self.label = None
 		self.neighbors = set()
 		self.indicent_edges = set()
+		self.in_left = None
 
 	def get_edge(self, neighbor):
 		'''Get indicent edge.
@@ -42,6 +45,9 @@ class Vertex:
 	def set_label(self, label):
 		'''Label the vertex.'''
 		self.label = label
+
+	def set_in_left(self, in_left):
+		self.in_left = in_left
 
 	def filter_neighbors(self):
 		'''Filter neighbors set after update to indicent edges.
@@ -115,14 +121,14 @@ class Graph:
 		'''
 		self.vertices[key] = Vertex(key)
 
-	def add_edge(self, v1, v2, weight = 0):
+	def add_edge(self, v1, v2, weight = 1):
 		'''Add a vertex to the graph.
 		
 		Parameters
 		----------
 		v1 : str, required (endpoint1 key)
 		v2 : str, required (endpoint2 key)
-		weight : int, optional (default = 0)
+		weight : int, optional (default = 1)
 		'''
 		if v1 not in self.vertices:
 			self.add_vertex(v1)
@@ -146,6 +152,7 @@ class Graph:
 		if start_vertex == None:
 			return True
 
+		self.clear_labeling()
 		self.vertices[start_vertex].set_label(1)
 		queue = []
 		queue.append(start_vertex)
@@ -162,6 +169,27 @@ class Graph:
 
 		return True
 
+	def make_complete_bipartite(self, start_vertex):
+		'''Make bipartite graph complete with weight 0 edges.
+
+		Parameters
+		----------
+		start_vertex : str, required (any vertex key)
+		'''
+		if start_vertex == None:
+			return True
+
+		self.clear_labeling()
+		self.generate_feasible_labeling(start_vertex)
+
+		for x in self.vertices:
+			if self.vertices[x].in_left:
+				for y in self.vertices:
+					if (not self.vertices[y].in_left 
+						and y not in self.vertices[x].neighbors):
+						self.add_edge(x, y, 0)
+		self.clear_labeling()
+
 	def feasibly_label(self, v):
 		'''Label a vertex with smallest nonzero feasible label 
 		   (= largest indicent edge weight).
@@ -177,6 +205,7 @@ class Graph:
 				max = e.weight
 
 		self.vertices[v].set_label(max)
+		self.vertices[v].set_in_left(True)
 
 	def generate_feasible_labeling(self, start_vertex):
 		'''Generate the initial feasible labeling.
@@ -206,6 +235,7 @@ class Graph:
 						self.feasibly_label(w)
 					else:
 						self.vertices[w].set_label(0)
+						self.vertices[w].set_in_left(False)
 					queue.append(w)
 				elif ((self.vertices[w].label == 0 
 					   and self.vertices[v].label == 0)
@@ -254,7 +284,7 @@ class Graph:
 		----------
 		Graph (subgraph with all edges e where l(v1) + l(v2) = w(e))
 		'''
-		eq_H = self
+		eq_H = copy.deepcopy(self)
 
 		for v in eq_H.vertices:
 			eq_H.vertices[v].indicent_edges = list(filter(
@@ -263,9 +293,4 @@ class Graph:
 			eq_H.vertices[v].filter_neighbors()
 
 		return eq_H
-
-
-
-
-
 

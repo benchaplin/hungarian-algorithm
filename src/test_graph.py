@@ -1,6 +1,6 @@
 '''
-    File name: test.py
-    Description: Tests for Graph methods and algorithms.
+    File name: test_graph.py
+    Description: Tests for Graph methods.
     Author: Ben Chaplin
     GitHub: https://github.com/benchaplin/hungarian-algorithm
     Package: hungarian_algorithm
@@ -58,10 +58,33 @@ class TestGraphMethods(unittest.TestCase):
 	def test_is_bipartite_fail2(self):
 		self.assertFalse(Graph(ex_Y).is_bipartite('x1'))
 
+	def test_make_complete_bipartite_single(self):
+		G = Graph({'a': {'b', 'd'}, 'c': {'d'}})
+		G.make_complete_bipartite('a')
+		self.assertTrue('b' in G.vertices['c'].neighbors)
+
+	def test_make_complete_bipartite1(self):
+		G = Graph(ex_G)
+		G.make_complete_bipartite('a')
+		self.assertTrue({'b', 'c', 'e'} == G.vertices['a'].neighbors
+						and {'b', 'c', 'e'} == G.vertices['d'].neighbors
+						and G.vertices['d'].get_edge('c').weight == 0
+						and G.vertices['d'].get_edge('e').weight == 0)
+
+	def test_make_complete_bipartite1(self):
+		G = Graph(ex_H)
+		G.make_complete_bipartite('x1')
+		self.assertTrue({'y1', 'y2', 'y3'} == G.vertices['x1'].neighbors
+						and {'y1', 'y2', 'y3'} == G.vertices['x2'].neighbors
+						and {'y1', 'y2', 'y3'} == G.vertices['x3'].neighbors
+						and G.vertices['x1'].get_edge('y3').weight == 0
+						and G.vertices['x2'].get_edge('y1').weight == 0
+						and G.vertices['x3'].get_edge('y2').weight == 0)
+
 	def test_feasibly_label_single(self):
 		G = Graph({'a': {'b'}})
 		G.feasibly_label('a')
-		self.assertEqual(G.vertices['a'].label, 0)
+		self.assertEqual(G.vertices['a'].label, 1)
 
 	def test_feasibly_label1(self):
 		G = Graph(ex_G)
