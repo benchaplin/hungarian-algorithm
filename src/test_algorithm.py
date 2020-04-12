@@ -61,6 +61,33 @@ exp_matching_K = {
 	('x1-y3', 2)
 }
 
+ex_L = {
+	'Ann': {'RB': 3, 'CAM': 2, 'GK': 1},
+	'Ben': {'LW': 3, 'S': 2, 'CM': 1},
+	'Cal': {'CAM': 3, 'RW': 2, 'SWP': 1},
+	'Dan': {'S': 3, 'LW': 2, 'GK': 1},
+	'Ela': {'GK': 3, 'LW': 2, 'F': 1},
+	'Fae': {'CM': 3, 'GK': 2, 'CAM': 1},
+	'Gio': {'GK': 3, 'CM': 2, 'S': 1},
+	'Hol': {'CAM': 3, 'F': 2, 'SWP': 1},
+	'Ian': {'S': 3, 'RW': 2, 'RB': 1},
+	'Jon': {'RB': 3, 'CAM': 2, 'GK': 1},
+	'Kay': {'GK': 3, 'RW': 2, 'LW': 1, 'LB': 0}
+}
+
+exp_matching_L = {
+	('Ian-RW', 2), 
+	('Cal-CAM', 3), 
+	('Ann-SWP', 0), 
+	('Ela-LB', 0), 
+ 	('Dan-S', 3), 
+	('Jon-RB', 3), 
+	('Hol-F', 2), 
+	('Fae-CM', 3), 
+	('Ben-LW', 3), 
+	('Gio-GK', 3)
+}
+
 class TestGraphMethods(unittest.TestCase):
 
 	def test_hungarian_algorithm1(self):
@@ -86,6 +113,12 @@ class TestGraphMethods(unittest.TestCase):
 
 	def test_hungarian_algorithm4_total(self):
 		self.assertEquals(hungarian_algorithm(ex_K, "total"), 11)
+
+	def test_hungarian_algorithm5(self):
+		self.assertEquals(set(hungarian_algorithm(ex_L)), exp_matching_L)
+
+	def test_hungarian_algorithm5_total(self):
+		self.assertEquals(hungarian_algorithm(ex_L, "total"), 22)
 
 if __name__ == '__main__':
     unittest.main()

@@ -293,4 +293,3 @@ class Graph:
 			eq_H.vertices[v].filter_neighbors()
 
 		return eq_H
-

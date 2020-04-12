@@ -78,24 +78,27 @@ def hungarian_algorithm(_G, return_type = 'list'):
 
 	Return
 	----------
-	{Edge} (set of Edges that make up the maximum-weighted matching)
+	[(str, int)] (list of edges in matching described as:
+				  a tuple ('x-y', weight))
+		or
+	int (total weight)
 	'''
+	# Step 1
+	# Create a bipartite graph, make it complete
 	G = Graph(_G)
 	start_vertex = list(G.vertices.keys())[0]
 	G.make_complete_bipartite(start_vertex)
 
+	# Generate an initial feasible labeling
 	is_bipartite = G.generate_feasible_labeling(start_vertex)
+
 	if not is_bipartite:
 		return False
 
+	# Create the equality subgraph
 	eq_G = G.equality_subgraph()
-	print('---')
-	print('STEP 1')
-	print('initial equality subgraph')
-	for v in eq_G.vertices:
-		print(v, eq_G.vertices[v].label, eq_G.vertices[v].neighbors)
 
-	print('initial matching')
+	# Create an initial matching
 	M = set()
 
 	for x in eq_G.vertices:
@@ -108,73 +111,65 @@ def hungarian_algorithm(_G, return_type = 'list'):
 			if max_edge is not None:
 				M.add(max_edge)
 
-	print(list(map(lambda e: e.vertices, M)))
-	print('---')
-
 	S = set()
 	T = set()
 	path_end = None
 
 	while len(M) < int(len(eq_G.vertices)/2):
 		if path_end is None:
-			print('---')
-			print('STEP 2')
+			# Step 2
+			# Add new augmenting tree
 			for x in eq_G.vertices:
 				if eq_G.vertices[x].in_left and not vertex_saturated(x, M):
 					S.add(x)
-					print('adding', x, 'to S -> S =', S)
 					path_end = x
 					break
-			print('---')
 		
+		# Calculate neighbors of S
 		S_nbs = set()
 		for v in S:
 			S_nbs = S_nbs | eq_G.vertices[v].neighbors
 
 		if S_nbs == T:
-			print('---')
-			print('STEP 3')
-			print('S = ', S, 'T = ', T)
-			print(S_nbs, 'S_nbs', '= T', T)
+			# Step 3
 			alpha = None
 			for x in S:
 				for y in G.vertices.keys() - T:
 					if not G.vertices[y].in_left and y in G.vertices[x].neighbors:
 						new_alpha = G.vertices[x].label + G.vertices[y].label - G.vertices[x].get_edge(y).weight
 						alpha = new_alpha if alpha is None or new_alpha < alpha else alpha
-			print('alpha =', alpha)
+			
+			# Update the labeling
 			for u in S:
 				G.vertices[u].label = G.vertices[u].label - alpha
 			for v in T:
 				G.vertices[v].label = G.vertices[v].label + alpha
-			eq_G = G.equality_subgraph()
-			print('New eq subgraph')
-			for v in eq_G.vertices:
-				print(v, eq_G.vertices[v].label, eq_G.vertices[v].neighbors)
-			print('---')
 
+			# Update the equality subgraph
+			eq_G = G.equality_subgraph()
+
+		# Calculate neighbors of S
 		S_nbs = set()
 		for v in S:
 			S_nbs = S_nbs | eq_G.vertices[v].neighbors
 
+		# Step 4
 		if S_nbs != T:
-			print('---')
-			print('STEP 4')
-			print('S = ', S, 'T = ', T)
-			print(S_nbs, 'S_nbs', '/= T', T)
 			y = list(S_nbs - T)[0]
-			print('choose', y, 'in complement')
 			z = vertex_saturated(y, M)
+
+			# Part (i)
 			if not z:
-				print(y, 'unsaturated in', list(map(lambda e: e.vertices, M)))
 				T.add(y)
-				print('adding', y, 'to T -> T =', T)
-				print('AUGMENTING MATCHING')
+				
+				# Augment the matching
 				y_path_last = y
 				y_path_curr = y
 				matched_nbs = True
+
 				while matched_nbs:
 					matched_nbs = False
+
 					for x in S & eq_G.vertices[y_path_curr].neighbors:
 						y_matched_nb = vertex_saturated(x, M)
 						if y_matched_nb and y_matched_nb != y_path_last:
@@ -184,19 +179,19 @@ def hungarian_algorithm(_G, return_type = 'list'):
 							y_path_last = y_path_curr
 							y_path_curr = y_matched_nb
 							break
+
 					if not matched_nbs:
 						M.add(eq_G.vertices[y_path_curr].get_edge(path_end))
-				print('NEW MATCHING', list(map(lambda e: e.vertices, M)))
+
 				S = set()
 				T = set()
 				path_end = None
-				print('---')
+
+			# Part (ii)
 			else:
-				print(y, 'saturated in', list(map(lambda e: e.vertices, M)))
+				# Add to augmenting tree
 				S.add(z)
 				T.add(y)
-				print('adding', z, 'to S -> S =', S, 'adding', y, 'to T -> T =', T)
-				print('---')
 
 	if return_type == 'list':
 		return list(map(lambda e: (e.vertices[0] + '-' + e.vertices[1], e.weight), M))
@@ -205,20 +200,3 @@ def hungarian_algorithm(_G, return_type = 'list'):
 		for e in M:
 			total = total + e.weight
 		return total
-
-ex_L = {
-	'Ann': {'RB': 3, 'CAM': 2, 'GK': 1},
-	'Ben': {'LW': 3, 'S': 2, 'CM': 1},
-	'Cal': {'CAM': 3, 'RW': 2, 'SWP': 1},
-	'Dan': {'S': 3, 'LW': 2, 'GK': 1},
-	'Ela': {'GK': 3, 'LW': 2, 'F': 1},
-	'Fae': {'CM': 3, 'GK': 2, 'CAM': 1},
-	'Gio': {'GK': 3, 'CM': 2, 'S': 1},
-	'Hol': {'CAM': 3, 'F': 2, 'SWP': 1},
-	'Ian': {'S': 3, 'RW': 2, 'RB': 1},
-	'Jon': {'RB': 3, 'CAM': 2, 'GK': 1},
-	'Kay': {'GK': 3, 'RW': 2, 'LW': 1, 'LB': 0}
-}
-
-print(hungarian_algorithm(ex_L, 'list'))
-
