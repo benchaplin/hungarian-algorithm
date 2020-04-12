@@ -69,7 +69,7 @@ def vertex_saturated(v, M):
 
 	return False
 
-def hungarian_algorithm(_G, return_type = "list"):
+def hungarian_algorithm(_G, return_type = 'list'):
 	'''Find maximum-weighted matching.
 
 	Parameters
@@ -198,9 +198,9 @@ def hungarian_algorithm(_G, return_type = "list"):
 				print('adding', z, 'to S -> S =', S, 'adding', y, 'to T -> T =', T)
 				print('---')
 
-	if return_type == "list":
+	if return_type == 'list':
 		return list(map(lambda e: (e.vertices[0] + '-' + e.vertices[1], e.weight), M))
-	elif return_type == "total":
+	elif return_type == 'total':
 		total = 0
 		for e in M:
 			total = total + e.weight
@@ -220,5 +220,5 @@ ex_L = {
 	'Kay': {'GK': 3, 'RW': 2, 'LW': 1, 'LB': 0}
 }
 
-print(hungarian_algorithm(ex_L, "total"))
+print(hungarian_algorithm(ex_L, 'list'))
 
