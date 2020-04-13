@@ -11,7 +11,6 @@
 from graph import *
 import copy
 
-
 def generate_feasible_labeling(G, start_vertex):
 	'''Generate the initial feasible labeling.
 
@@ -69,7 +68,7 @@ def vertex_saturated(v, M):
 
 	return False
 
-def hungarian_algorithm(_G, return_type = 'list'):
+def find_matching(_G, return_type = 'list'):
 	'''Find maximum-weighted matching.
 
 	Parameters

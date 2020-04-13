@@ -18,10 +18,16 @@ Then, if you assign weight 3 to blue edges, weight 2 to red edges and weight 1 t
 
 ## Usage
 
+### Install
+
+```
+pip3 install hungarian-algorithm
+```
+
 ### Import 
 
 ```python
-from algorithm import hungarian_algorithm
+from hungarian_algorithm import algorithm
 ```
 ### Required Input
 
@@ -57,7 +63,7 @@ thus defining a **complete bipartite graph** G = (L &#8746; R, E) with:
 Then pass the graph as an input:
 
 ```python
-hungarian_algorithm(G)
+algorithm.find_matching(G)
 ```
 
 ### Output
@@ -65,7 +71,7 @@ hungarian_algorithm(G)
 Determine your desired output with an optional input. For an output listing *Player - Position* pairs in the **maximum-weighted matching** along with w(*Player*, *Position*), use the input 'list' (default):
 
 ```python
-hungarian_algorithm(G, 'list')
+algorithm.find_matching(G, 'list')
 # -> [('Cal-CAM', 3), ('Jon-F', 3), ('Fae-CM', 3), ('Hol-SWP', 1), ('Dan-CB', 0), ('Ann-RB', 3),
 #     ('Gio-LB', 0), ('Ian-S', 3), ('Ela-GK', 3), ('Ben-LW', 3), ('Kay-RW', 2)]
 ```
@@ -73,7 +79,7 @@ hungarian_algorithm(G, 'list')
 For an output of the total weight of the **maximum-weighted matching**, use the input 'total':
 
 ```python
-hungarian_algorithm(G, 'total')
+algorithm.find_matching(G, 'total')
 # -> 24
 ```
 
