@@ -10,7 +10,7 @@ The 11 players submit their top 3 position choices, and it is your job to create
 
 The situation can be modeled with a **weighted bipartite graph**:
 
-<img src="./soccer_ex.png" alt="Example" width="500"/>
+<img src="https://github.com/benchaplin/hungarian-algorithm/blob/master/soccer_ex.png" alt="Example" width="500"/>
 
 Then, if you assign weight 3 to blue edges, weight 2 to red edges and weight 1 to green edges, your job is simply to find the matching that maximizes total weight. This is the **assignment problem**, for which the **Hungarian Algorithm** offers a solution.
 

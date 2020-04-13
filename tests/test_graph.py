@@ -8,8 +8,10 @@
     License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
+import sys
+sys.path.insert(1, '../hungarian_algorithm')
+from graph import *
 import unittest
-from graph import Vertex, Edge, Graph
 
 ex_G = {
 	'a': {'b': 2, 'c': 7, 'e': 1},

@@ -1,5 +1,5 @@
 '''
-    File name: algorithms.py
+    File name: algorithm.py
     Description: The Hungarian Method for the assignment problem.
     Author: Ben Chaplin
     GitHub: https://github.com/benchaplin/hungarian-algorithm
@@ -8,7 +8,7 @@
     License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
-from graph import Vertex, Edge, Graph
+from graph import *
 import copy
 
 

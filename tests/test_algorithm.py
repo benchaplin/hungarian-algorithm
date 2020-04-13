@@ -8,8 +8,10 @@
     License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
-import unittest
+import sys
+sys.path.insert(1, '../hungarian_algorithm')
 from algorithm import hungarian_algorithm
+import unittest
 
 ex_G = {
 	'a': {'b': 2, 'c': 7, 'e': 1},
@@ -92,34 +94,34 @@ exp_matching_L = {
 class TestGraphMethods(unittest.TestCase):
 
 	def test_hungarian_algorithm1(self):
-		self.assertEquals(set(hungarian_algorithm(ex_G)), exp_matching_G)
+		self.assertEqual(set(hungarian_algorithm(ex_G)), exp_matching_G)
 
 	def test_hungarian_algorithm1_total(self):
-		self.assertEquals(hungarian_algorithm(ex_G, "total"), 12)
+		self.assertEqual(hungarian_algorithm(ex_G, "total"), 12)
 
 	def test_hungarian_algorithm2(self):
-		self.assertEquals(set(hungarian_algorithm(ex_H)), exp_matching_H)
+		self.assertEqual(set(hungarian_algorithm(ex_H)), exp_matching_H)
 
 	def test_hungarian_algorithm2_total(self):
-		self.assertEquals(hungarian_algorithm(ex_H, "total"), 16)
+		self.assertEqual(hungarian_algorithm(ex_H, "total"), 16)
 
 	def test_hungarian_algorithm3(self):
-		self.assertEquals(set(hungarian_algorithm(ex_J)), exp_matching_J)
+		self.assertEqual(set(hungarian_algorithm(ex_J)), exp_matching_J)
 
 	def test_hungarian_algorithm3_total(self):
-		self.assertEquals(hungarian_algorithm(ex_J, "total"), 30)
+		self.assertEqual(hungarian_algorithm(ex_J, "total"), 30)
 
 	def test_hungarian_algorithm4(self):
-		self.assertEquals(set(hungarian_algorithm(ex_K)), exp_matching_K)
+		self.assertEqual(set(hungarian_algorithm(ex_K)), exp_matching_K)
 
 	def test_hungarian_algorithm4_total(self):
-		self.assertEquals(hungarian_algorithm(ex_K, "total"), 11)
+		self.assertEqual(hungarian_algorithm(ex_K, "total"), 11)
 
 	def test_hungarian_algorithm5(self):
-		self.assertEquals(set(hungarian_algorithm(ex_L)), exp_matching_L)
+		self.assertEqual(set(hungarian_algorithm(ex_L)), exp_matching_L)
 
 	def test_hungarian_algorithm5_total(self):
-		self.assertEquals(hungarian_algorithm(ex_L, "total"), 24)
+		self.assertEqual(hungarian_algorithm(ex_L, "total"), 24)
 
 if __name__ == '__main__':
     unittest.main()
