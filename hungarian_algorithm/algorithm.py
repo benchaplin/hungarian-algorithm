@@ -138,14 +138,15 @@ def find_matching(_G, return_type = 'list'):
 						new_alpha = G.vertices[x].label + G.vertices[y].label - G.vertices[x].get_edge(y).weight
 						alpha = new_alpha if alpha is None or new_alpha < alpha else alpha
 			
-			# Update the labeling
-			for u in S:
-				G.vertices[u].label = G.vertices[u].label - alpha
-			for v in T:
-				G.vertices[v].label = G.vertices[v].label + alpha
+			if alpha != None:
+				# Update the labeling
+				for u in S:
+					G.vertices[u].label = G.vertices[u].label - alpha
+				for v in T:
+					G.vertices[v].label = G.vertices[v].label + alpha
 
-			# Update the equality subgraph
-			eq_G = G.equality_subgraph()
+				# Update the equality subgraph
+				eq_G = G.equality_subgraph()
 
 		# Calculate neighbors of S
 		S_nbs = set()
