@@ -294,7 +294,6 @@ class Graph:
 
 		return eq_H
 
-
 '''
     File name: algorithm.py
     Description: The Hungarian Method for the assignment problem.
@@ -490,7 +489,7 @@ def find_matching(_G, return_type = 'list'):
 				T.add(y)
 
 	if return_type == 'list':
-		return list(map(lambda e: (e.vertices[0] + '-' + e.vertices[1], e.weight), M))
+		return list(map(lambda e: ((e.vertices[0], e.vertices[1]), e.weight), M))
 	elif return_type == 'total':
 		total = 0
 		for e in M:

@@ -10,7 +10,7 @@
 
 import sys
 sys.path.insert(1, '../hungarian_algorithm')
-from algorithm import hungarian_algorithm
+from algorithm import find_matching
 import unittest
 
 ex_G = {
@@ -19,8 +19,8 @@ ex_G = {
 }
 
 exp_matching_G = {
-	('a-c', 7), 
-	('d-b', 5)
+	(('a', 'c'), 7), 
+	(('d', 'b'), 5)
 }
 
 ex_H = {
@@ -30,9 +30,9 @@ ex_H = {
 }
 
 exp_matching_H = {
-	('x1-y2', 6), 
-	('x2-y3', 6), 
-	('x3-y1', 4)
+	(('x1', 'y2'), 6), 
+	(('x2', 'y3'), 6), 
+	(('x3', 'y1'), 4)
 }
 
 ex_J = {
@@ -44,11 +44,11 @@ ex_J = {
 }
 
 exp_matching_J = {
-	('x2-y5', 5), 
-	('x1-y1', 6), 
-	('x3-y3', 2), 
-	('x4-y2', 10), 
-	('x5-y4', 7)
+	(('x2', 'y5'), 5), 
+	(('x1', 'y1'), 6), 
+	(('x3', 'y3'), 2), 
+	(('x4', 'y2'), 10), 
+	(('x5', 'y4'), 7)
 }
 
 ex_K = {
@@ -58,9 +58,9 @@ ex_K = {
 }
 
 exp_matching_K = {
-	('x2-y1', 3), 
-	('x3-y2', 6), 
-	('x1-y3', 2)
+	(('x2', 'y1'), 3), 
+	(('x3', 'y2'), 6), 
+	(('x1', 'y3'), 2)
 }
 
 ex_L = {
@@ -78,50 +78,50 @@ ex_L = {
 }
 
 exp_matching_L = {
-	('Cal-CAM', 3), 
-	('Jon-F', 3), 
-	('Fae-CM', 3), 
-	('Hol-SWP', 1), 
-	('Dan-CB', 0), 
-	('Ann-RB', 3),
-	('Gio-LB', 0), 
-	('Ian-S', 3), 
-	('Ela-GK', 3), 
-	('Ben-LW', 3), 
-	('Kay-RW', 2)
+	(('Cal', 'CAM'), 3), 
+	(('Jon', 'F'), 3), 
+	(('Fae', 'CM'), 3), 
+	(('Hol', 'SWP'), 1), 
+	(('Dan', 'CB'), 0), 
+	(('Ann', 'RB'), 3),
+	(('Gio', 'LB'), 0), 
+	(('Ian', 'S'), 3), 
+	(('Ela', 'GK'), 3), 
+	(('Ben', 'LW'), 3), 
+	(('Kay', 'RW'), 2)
 }
 
 class TestGraphMethods(unittest.TestCase):
 
 	def test_hungarian_algorithm1(self):
-		self.assertEqual(set(hungarian_algorithm(ex_G)), exp_matching_G)
+		self.assertEqual(set(find_matching(ex_G)), exp_matching_G)
 
 	def test_hungarian_algorithm1_total(self):
-		self.assertEqual(hungarian_algorithm(ex_G, "total"), 12)
+		self.assertEqual(find_matching(ex_G, "total"), 12)
 
 	def test_hungarian_algorithm2(self):
-		self.assertEqual(set(hungarian_algorithm(ex_H)), exp_matching_H)
+		self.assertEqual(set(find_matching(ex_H)), exp_matching_H)
 
 	def test_hungarian_algorithm2_total(self):
-		self.assertEqual(hungarian_algorithm(ex_H, "total"), 16)
+		self.assertEqual(find_matching(ex_H, "total"), 16)
 
 	def test_hungarian_algorithm3(self):
-		self.assertEqual(set(hungarian_algorithm(ex_J)), exp_matching_J)
+		self.assertEqual(set(find_matching(ex_J)), exp_matching_J)
 
 	def test_hungarian_algorithm3_total(self):
-		self.assertEqual(hungarian_algorithm(ex_J, "total"), 30)
+		self.assertEqual(find_matching(ex_J, "total"), 30)
 
 	def test_hungarian_algorithm4(self):
-		self.assertEqual(set(hungarian_algorithm(ex_K)), exp_matching_K)
+		self.assertEqual(set(find_matching(ex_K)), exp_matching_K)
 
 	def test_hungarian_algorithm4_total(self):
-		self.assertEqual(hungarian_algorithm(ex_K, "total"), 11)
+		self.assertEqual(find_matching(ex_K, "total"), 11)
 
 	def test_hungarian_algorithm5(self):
-		self.assertEqual(set(hungarian_algorithm(ex_L)), exp_matching_L)
+		self.assertEqual(set(find_matching(ex_L)), exp_matching_L)
 
 	def test_hungarian_algorithm5_total(self):
-		self.assertEqual(hungarian_algorithm(ex_L, "total"), 24)
+		self.assertEqual(find_matching(ex_L, "total"), 24)
 
 if __name__ == '__main__':
     unittest.main()

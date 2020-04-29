@@ -68,13 +68,15 @@ algorithm.find_matching(G)
 
 ### Output
 
-Determine your desired output with an optional input. For an output listing *Player - Position* pairs in the **maximum-weighted matching** along with w(*Player*, *Position*), use the input 'list' (default):
+Determine your desired output with an optional input. For an output listing (*Player*, *Position*) pairs in the **maximum-weighted matching** along with w(*Player*, *Position*), use the input 'list' (default):
 
 ```python
 algorithm.find_matching(G, 'list')
-# -> [('Cal-CAM', 3), ('Jon-F', 3), ('Fae-CM', 3), ('Hol-SWP', 1), ('Dan-CB', 0), ('Ann-RB', 3),
-#     ('Gio-LB', 0), ('Ian-S', 3), ('Ela-GK', 3), ('Ben-LW', 3), ('Kay-RW', 2)]
+# -> [(('Ann', 'RB'), 3), (('Gio', 'CB'), 0), (('Ben', 'LW'), 3), (('Ian', 'RW'), 2), (('Cal', 'CAM'), 3), (('Fae', 'CM'), 3),
+#     (('Ela', 'LB'), 0), (('Kay', 'GK'), 3), (('Jon', 'F'), 3), (('Dan', 'S'), 3), (('Hol', 'SWP'), 1)]
 ```
+
+**Note:** Outputs may vary per run if more than one **maximum-weighted matching** exists.
 
 For an output of the total weight of the **maximum-weighted matching**, use the input 'total':
 
