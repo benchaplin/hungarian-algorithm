@@ -72,8 +72,9 @@ Determine your desired output with an optional input. For an output listing (*Pl
 
 ```python
 algorithm.find_matching(G, 'list')
-# -> [(('Ann', 'RB'), 3), (('Gio', 'CB'), 0), (('Ben', 'LW'), 3), (('Ian', 'RW'), 2), (('Cal', 'CAM'), 3), (('Fae', 'CM'), 3),
-#     (('Ela', 'LB'), 0), (('Kay', 'GK'), 3), (('Jon', 'F'), 3), (('Dan', 'S'), 3), (('Hol', 'SWP'), 1)]
+# -> [(('Ann', 'RB'), 3), (('Gio', 'CB'), 0), (('Ben', 'LW'), 3), (('Ian', 'RW'), 2), 
+#     (('Cal', 'CAM'), 3), (('Fae', 'CM'), 3), (('Ela', 'LB'), 0), (('Kay', 'GK'), 3), 
+#     (('Jon', 'F'), 3), (('Dan', 'S'), 3), (('Hol', 'SWP'), 1)]
 ```
 
 **Note:** Outputs may vary per run if more than one **maximum-weighted matching** exists.
