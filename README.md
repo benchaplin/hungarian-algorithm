@@ -31,7 +31,7 @@ from hungarian_algorithm import algorithm
 ```
 ### Required Input
 
-Define your **weighted bipartite graph** in the following manner:
+Define a **weighted bipartite graph** in the following manner:
 
 ```python
 G = {
