@@ -84,7 +84,11 @@ algorithm.find_matching(G, matching_type = 'max', return_type = 'list' )
 You will get the output:
 
 ```python
-[(('Ann', 'RB'), 3), (('Gio', 'CB'), 0), (('Ben', 'LW'), 3), (('Ian', 'RW'), 2), (('Cal', 'CAM'), 3), (('Fae', 'CM'), 3), (('Ela', 'LB'), 0), (('Kay', 'GK'), 3), (('Jon', 'F'), 3), (('Dan', 'S'), 3), (('Hol', 'SWP'), 1)]
+[
+	(('Ann', 'RB'), 3), (('Gio', 'CB'), 0), (('Ben', 'LW'), 3), (('Ian', 'RW'), 2),
+	(('Cal', 'CAM'), 3), (('Fae', 'CM'), 3), (('Ela', 'LB'), 0), (('Kay', 'GK'), 3),
+	(('Jon', 'F'), 3), (('Dan', 'S'), 3), (('Hol', 'SWP'), 1)
+]
 ```
 
 If you only need the total weight:
@@ -133,7 +137,10 @@ algorithm.find_matching(H, matching_type = 'min', return_type = 'list' )
 You will get the output:
 
 ```python
-[(('A', '#128'), 4), (('B', '#122'), 12), (('C', '#173'), 2), (('D', '#104'), 4), (('E', '#191'), 1), (('F', '#121'), 28)]
+[
+	(('A', '#128'), 4), (('B', '#122'), 12), (('C', '#173'), 2),
+	(('D', '#104'), 4), (('E', '#191'), 1), (('F', '#121'), 28)
+]
 ```
 
 ## History
