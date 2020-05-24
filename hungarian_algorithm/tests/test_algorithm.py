@@ -8,9 +8,7 @@
     License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
-import sys
-sys.path.insert(1, '../hungarian_algorithm')
-from algorithm import find_matching
+from ..algorithm import find_matching
 import unittest
 
 ex_G = {
@@ -36,7 +34,7 @@ exp_matching_H = {
 }
 
 ex_J = {
-	'x1': {'y1': 6, 'y2': 1, 'y5': 3},
+	'x1': {'y1': 7, 'y2': 1, 'y5': 3},
 	'x2': {'y1': 8, 'y2': 7, 'y5': 5},
 	'x3': {'y2': 9, 'y3': 2},
 	'x4': {'y2': 10, 'y3': 1, 'y4': 8, 'y5': 6},
@@ -45,7 +43,7 @@ ex_J = {
 
 exp_matching_J = {
 	(('x2', 'y5'), 5), 
-	(('x1', 'y1'), 6), 
+	(('x1', 'y1'), 7), 
 	(('x3', 'y3'), 2), 
 	(('x4', 'y2'), 10), 
 	(('x5', 'y4'), 7)
@@ -91,37 +89,85 @@ exp_matching_L = {
 	(('Kay', 'RW'), 2)
 }
 
+ex_M = {
+    'D91': { 'O87': 3668, 'O224': 3880 },
+    'D22': { 'O87': 482, 'O224': 1825 }
+}
+
+exp_max_matching_M = {
+	(('D91', 'O87'), 3668),
+	(('D22', 'O224'), 1825)
+}
+
+exp_min_matching_M = {
+	(('D91', 'O224'), 3880),
+	(('D22', 'O87'), 482)
+}
+
+ex_N = {
+	'A': { '#191': 22, '#122': 14, '#173': 120, '#121': 21, '#128': 4, '#104': 51 },
+	'B': { '#191': 19, '#122': 12, '#173': 172, '#121': 21, '#128': 28, '#104': 43 },
+	'C': { '#191': 161, '#122': 122, '#173': 2, '#121': 50, '#128': 128, '#104': 39 },
+	'D': { '#191': 19, '#122': 22, '#173': 90, '#121': 11, '#128': 28, '#104': 4 },
+	'E': { '#191': 1, '#122': 30, '#173': 113, '#121': 14, '#128': 28, '#104': 86 },
+	'F': { '#191': 60, '#122': 70, '#173': 170, '#121': 28, '#128': 68, '#104': 104 },
+}
+
+exp_min_matching_N = {
+	(('A', '#128'), 4),
+	(('B', '#122'), 12),
+	(('C', '#173'), 2),
+	(('D', '#104'), 4),
+	(('E', '#191'), 1),
+	(('F', '#121'), 28)
+}
+
 class TestGraphMethods(unittest.TestCase):
 
 	def test_hungarian_algorithm1(self):
 		self.assertEqual(set(find_matching(ex_G)), exp_matching_G)
 
 	def test_hungarian_algorithm1_total(self):
-		self.assertEqual(find_matching(ex_G, "total"), 12)
+		self.assertEqual(find_matching(ex_G, return_type = 'total'), 12)
 
 	def test_hungarian_algorithm2(self):
 		self.assertEqual(set(find_matching(ex_H)), exp_matching_H)
 
 	def test_hungarian_algorithm2_total(self):
-		self.assertEqual(find_matching(ex_H, "total"), 16)
+		self.assertEqual(find_matching(ex_H, return_type = 'total'), 16)
 
 	def test_hungarian_algorithm3(self):
 		self.assertEqual(set(find_matching(ex_J)), exp_matching_J)
 
 	def test_hungarian_algorithm3_total(self):
-		self.assertEqual(find_matching(ex_J, "total"), 30)
+		self.assertEqual(find_matching(ex_J, return_type = 'total'), 31)
 
 	def test_hungarian_algorithm4(self):
 		self.assertEqual(set(find_matching(ex_K)), exp_matching_K)
 
 	def test_hungarian_algorithm4_total(self):
-		self.assertEqual(find_matching(ex_K, "total"), 11)
-
-	def test_hungarian_algorithm5(self):
-		self.assertEqual(set(find_matching(ex_L)), exp_matching_L)
+		self.assertEqual(find_matching(ex_K, return_type = 'total'), 11)
 
 	def test_hungarian_algorithm5_total(self):
-		self.assertEqual(find_matching(ex_L, "total"), 24)
+		self.assertEqual(find_matching(ex_L, return_type = 'total'), 24)
+
+	def test_hungarian_algorithm6_max(self):
+		self.assertEqual(set(find_matching(ex_M)), exp_max_matching_M)
+
+	def test_hungarian_algorithm6_min(self):
+		self.assertEqual(set(find_matching(ex_M, matching_type = 'min')), exp_min_matching_M)
+
+	def test_hungarian_algorithm6_total_max(self):
+		self.assertEqual(find_matching(ex_M, matching_type = 'max', return_type = 'total'), 5493)
+
+	def test_hungarian_algorithm6_total_min(self):
+		self.assertEqual(find_matching(ex_M, matching_type = 'min', return_type = 'total'), 4362)
+
+	def test_hungarian_algorithm7_min(self):
+		self.assertEqual(set(find_matching(ex_N, matching_type = 'min')), exp_min_matching_N)
+
+	def test_hungarian_algorithm6_total_min(self):
+		self.assertEqual(find_matching(ex_N, matching_type = 'min', return_type = 'total'), 51)
 
 if __name__ == '__main__':
     unittest.main()

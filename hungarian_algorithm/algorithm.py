@@ -90,7 +90,7 @@ class Edge:
 
 class Graph:
 
-	def __init__(self, G={}):
+	def __init__(self, G = {}, negate = False):
 		'''Graph constructor (for connected graphs).
 
 		Parameters
@@ -108,7 +108,7 @@ class Graph:
 		for v1 in G:
 			for v2 in G[v1]:
 				if type(G[v1]) is dict:
-					self.add_edge(v1, v2, G[v1][v2])
+					self.add_edge(v1, v2, G[v1][v2], negate)
 				else:
 					self.add_edge(v1, v2)
 
@@ -121,7 +121,7 @@ class Graph:
 		'''
 		self.vertices[key] = Vertex(key)
 
-	def add_edge(self, v1, v2, weight = 1):
+	def add_edge(self, v1, v2, weight = 1, negate = False):
 		'''Add a vertex to the graph.
 		
 		Parameters
@@ -135,7 +135,10 @@ class Graph:
 		if v2 not in self.vertices:
 			self.add_vertex(v2)
 
-		e = Edge(v1, v2, weight)
+		if negate:
+			e = Edge(v1, v2, -weight)
+		else:
+			e = Edge(v1, v2, weight)
 
 		self.vertices[v1].neighbors.add(v2)
 		self.vertices[v2].neighbors.add(v1)
@@ -198,10 +201,10 @@ class Graph:
 		----------
 		v : str, required (any vertex key)
 		'''
-		max = 0
+		max = None
 
 		for e in self.vertices[v].indicent_edges:
-			if e.weight > max:
+			if max is None or e.weight > max:
 				max = e.weight
 
 		self.vertices[v].set_label(max)
@@ -271,9 +274,11 @@ class Graph:
 		bool (True if in equality subgraph, False if not)
 		'''
 		e_endpoints = list(e.vertices)
+
 		if (self.vertices[e_endpoints[0]].label == None or 
 			self.vertices[e_endpoints[1]].label == None):
 			return False
+
 		return e.weight == (self.vertices[e_endpoints[0]].label + 
 							self.vertices[e_endpoints[1]].label)
 
@@ -347,13 +352,12 @@ def vertex_saturated(v, M):
 		if v == e.vertices[0]:
 			return e.vertices[1]
 		elif v == e.vertices[1]:
-			return e.vertices[0]
-			
+			return e.vertices[0]	
 
 	return False
 
-def find_matching(_G, return_type = 'list'):
-	'''Find maximum-weighted matching.
+def find_matching(_G, matching_type = 'max', return_type = 'list'):
+	'''Find maximum/minimum-weighted matching.
 
 	Parameters
 	----------
@@ -368,7 +372,8 @@ def find_matching(_G, return_type = 'list'):
 	'''
 	# Step 1
 	# Create a bipartite graph, make it complete
-	G = Graph(_G)
+	negate = False if matching_type == 'max' else True
+	G = Graph(_G, negate)
 	start_vertex = list(G.vertices.keys())[0]
 	G.make_complete_bipartite(start_vertex)
 
@@ -477,10 +482,11 @@ def find_matching(_G, return_type = 'list'):
 				S.add(z)
 				T.add(y)
 
+	edge_multiple = -1 if matching_type == 'min' else 1;
 	if return_type == 'list':
-		return list(map(lambda e: ((e.vertices[0], e.vertices[1]), e.weight), M))
+		return list(map(lambda e: ((e.vertices[0], e.vertices[1]), edge_multiple * e.weight), M))
 	elif return_type == 'total':
 		total = 0
 		for e in M:
-			total = total + e.weight
+			total = total + (edge_multiple * e.weight)
 		return total

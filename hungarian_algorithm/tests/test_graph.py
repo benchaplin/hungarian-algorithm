@@ -8,9 +8,7 @@
     License: MIT License Copyright (c) 2020 Ben Chaplin
 '''
 
-import sys
-sys.path.insert(1, '../hungarian_algorithm')
-from graph import *
+from ..algorithm import *
 import unittest
 
 ex_G = {
